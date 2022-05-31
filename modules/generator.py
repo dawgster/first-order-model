@@ -75,7 +75,7 @@ class OcclusionAwareGenerator(nn.Module):
                 output_dict['occlusion_map'] = occlusion_map
             else:
                 occlusion_map = None
-            if forced_occlsuion is not None:
+            if forced_occlusion is not None:
                 occlusion_map = forced_occlusion
             deformation = dense_motion['deformation']
             out = self.deform_input(out, deformation)
