@@ -56,7 +56,7 @@ class OcclusionAwareGenerator(nn.Module):
             deformation = deformation.permute(0, 2, 3, 1)
         return F.grid_sample(inp, deformation)
 
-    def forward(self, source_image, kp_driving, kp_source):
+    def forward(self, source_image, kp_driving, kp_source, forced_occlusion=None):
         # Encoding (downsampling) part
         out = self.first(source_image)
         for i in range(len(self.down_blocks)):
@@ -75,6 +75,8 @@ class OcclusionAwareGenerator(nn.Module):
                 output_dict['occlusion_map'] = occlusion_map
             else:
                 occlusion_map = None
+            if forced_occlsuion is not None:
+                occlusion_map = forced_occlusion
             deformation = dense_motion['deformation']
             out = self.deform_input(out, deformation)
 
