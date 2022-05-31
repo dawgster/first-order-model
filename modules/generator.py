@@ -83,6 +83,7 @@ class OcclusionAwareGenerator(nn.Module):
             if occlusion_map is not None:
                 if out.shape[2] != occlusion_map.shape[2] or out.shape[3] != occlusion_map.shape[3]:
                     occlusion_map = F.interpolate(occlusion_map, size=out.shape[2:], mode='bilinear')
+                    output_dict['occlusion_map'] = occlusion_map
                 out = out * occlusion_map
 
             output_dict["deformed"] = self.deform_input(source_image, deformation)
