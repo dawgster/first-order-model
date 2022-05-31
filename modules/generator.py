@@ -76,7 +76,7 @@ class OcclusionAwareGenerator(nn.Module):
             else:
                 occlusion_map = None
             if forced_occlusion is not None:
-                occlusion_map = torch.from_numpy(forced_occlusion).cuda()
+                occlusion_map = torch.from_numpy(forced_occlusion).cuda().float()
             deformation = dense_motion['deformation']
             out = self.deform_input(out, deformation)
 
